@@ -82,7 +82,7 @@ Now that we have setup the environment and installed the Azure load Test Extensi
     * Create New Test - This command is used to author a new test from scratch.   
     * Run Current File as Load Test in Cloud – This command is used to run an existing Yaml runbook at scale in cloud.   
 
-    ❮img src="getting started tutorial\snip1_.png" width="100" ❯
+    <img src="Images/Start.png" width="600">
 
 2. Select the command **Create New Test**
 

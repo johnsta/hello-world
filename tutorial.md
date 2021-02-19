@@ -82,11 +82,11 @@ Now that we have setup the environment and installed the Azure load Test Extensi
     * Create New Test - This command is used to author a new test from scratch.   
     * Run Current File as Load Test in Cloud – This command is used to run an existing Yaml runbook at scale in cloud.   
 
-    <img src="Images/Start.png" height="150">
+    <img src="Images/Start.png" width=600">
 
 2. Select the command **Create New Test**
 
-3. Select a test plan **SampleApp.jmx**. if there are multiple jmx at the workspace, they will be shown as a list. There is also a browse option to search for a test plan within your local file system.		
+3. Select a test plan **SampleApp.jmx**. if there are multiple jmx at the workspace, they will be shown as a list. There is also a browse option to search for a test plan within your local file system.	
     <img src="Images/browse.png" width="600">
     
 4. A YAML runbook with smart defaults will open. By default, the name of the YAML runbook would be the name of the test plan that we selected in the previous step. This runbook will be created and saved in the current workspace.
@@ -111,33 +111,22 @@ Now that we have setup the environment and installed the Azure load Test Extensi
 
 Once we have selected the resource group(s) and hit ok. The validations will be performed and If everything is okay, then the test will be launched with status messages as shown below. You may click on the View here Link to go to the portal and see the metrics related to your load test.  
 
-<p>
-    <img src="Images/Stat1.png" width="600">
-</p>
+   <img src="Images/Stat1.png" width="600">
 
 Once the load test completes you will be presented with a URL to view the detailed results on the Azure portal as shown below.  
-<p>
-    <img src="Images/stop test.png" width="600">
-</p>
+
+   <img src="Images/stop test.png" width="600">
 
 # **Identify bottlenecks associated with a sample application by looking at the lcient side and server-side metrics.**
 
 Now that we have run the load test and we have the detailed report available at the link as described in the previous section. Let’s go and analyze the test results and see if there is a bottleneck by examining the server side and client-side metrics.
 On the summary page, we see that the response time has increased along with the errors.
-
-<p>
     <img src="Images/clientside.png" width="600"> 
-</p>
-
 To Understand why this has happened click on the detailed report tab which will open a view listing app component as below grouped by the component type	
 Our Sample app had two components viz. cosmos Db which can be found under the database tab and Webapp hosted on app Service which can be found under the web application tab.Under the App service plan we see that the CPU usage (CPU percentages and the memory percentages) are well within limit and don’t show any bottlenecks caused by overuse or higher memory consumption.  
-<p>
     <img src="Images/appsvc.png" width="600">
-</p>
 The above step gives us an idea that the increase in number errors as well as the response time might be due to the other app component ie. Cosmos DB. Let us examine it to make sure that is the case. When we open the database tab and expand the metrics pane related to the Cosmos Db, we see that the Ru has been consumed and that might be causing the throttling of by cosmos db.
-<p>
     <img src="Images/cosmos.png" width="600">
-</p>
 Now that we have identified the bottleneck which is caused by the low RU setting on the free tier as we had selected for the cosmos DB. Let us now go ahead and update the RU manually and see if the bottleneck has been addressed.
 
 # **Reconfigure and Re-run the load test to identify improvements in app performance.**

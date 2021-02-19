@@ -146,7 +146,7 @@ We see that the response time has improved compared to the last test run and als
 
 Now that we have successfully run our first load test and have been able to identify and correct bottleneck in our application, you may want to delete the resources so that you don’t incur charges. Use the az group delete command to remove the resource group, and all related resources.
 
-	az group delete –name resourcegrouname
+	az group delete –name myResourceGroup
        
 You can also utilize the delete function on the concerned resource group’s blade in order to remove the resources as shown below.
 

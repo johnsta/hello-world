@@ -1,10 +1,10 @@
 # Outline
 ### Introduction
 ### Pre-Requisites
-### Running your first load test
-### Results dashboard on Azure Portal
+### Run your first load test
+### Identify bottlenecks associated with a sample application by looking at the lcient side and server-side metrics
+### Reconfigure and Re-run the load test to identify improvements in app performance
 ### Cleanup resources
-### Known issues
 
 # **Introduction**
 
@@ -112,50 +112,39 @@ Now that we have setup the environment and installed the Azure load Test Extensi
 
 Once we have selected the resource group(s) and hit ok. The validations will be performed and If everything is okay, then the test will be launched with status messages as shown below. You may click on the View here Link to go to the portal and see the metrics related to your load test.  
 
-   <img src="Images/Stat1.png" width="600">
+  &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/Stat1.png" width="600">
 
 Once the load test completes you will be presented with a URL to view the detailed results on the Azure portal as shown below.  
 
-   <img src="Images/stop test.png" width="600">
+  &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/stop test.png" width="600">
 
 # **Identify bottlenecks associated with a sample application by looking at the lcient side and server-side metrics.**
 
 Now that we have run the load test and we have the detailed report available at the link as described in the previous section. Let’s go and analyze the test results and see if there is a bottleneck by examining the server side and client-side metrics.
 On the summary page, we see that the response time has increased along with the errors.
-    <img src="Images/clientside.png" width="600"> 
+  &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/clientside.png" width="600"> 
 To Understand why this has happened click on the detailed report tab which will open a view listing app component as below grouped by the component type	
 Our Sample app had two components viz. cosmos Db which can be found under the database tab and Webapp hosted on app Service which can be found under the web application tab.Under the App service plan we see that the CPU usage (CPU percentages and the memory percentages) are well within limit and don’t show any bottlenecks caused by overuse or higher memory consumption.  
-    <img src="Images/appsvc.png" width="600">
+  &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/appsvc.png" width="600">
 The above step gives us an idea that the increase in number errors as well as the response time might be due to the other app component ie. Cosmos DB. Let us examine it to make sure that is the case. When we open the database tab and expand the metrics pane related to the Cosmos Db, we see that the Ru has been consumed and that might be causing the throttling of by cosmos db.
-    <img src="Images/cosmos.png" width="600">
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/cosmos.png" width="600">
 Now that we have identified the bottleneck which is caused by the low RU setting on the free tier as we had selected for the cosmos DB. Let us now go ahead and update the RU manually and see if the bottleneck has been addressed.
 
 # **Reconfigure and Re-run the load test to identify improvements in app performance.**
 
 For configuring the RU settings manually please visit the Cosmos DB blade of the resource we had deployed.  
-<p>
-    <img src="Images/scalecosmos.png" width="600">
-</p?=>
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/scalecosmos.png" width="600">
 Click on the Scale and settings option and set the value to 800 RU and click on save present on the top of the blade. You will be able to see the associated cost too.
-<p>
-    <img src="Images/800ru.png" width="600">
-</p>
-
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/800ru.png" width="600">
 Going back to the test run page by clicking on the Test resource ->Test -> Test name. You will see the list of the test runs. On the top of the page click on the run tab you will get info that the test would be run with the jmx file that was uploaded and the latest configuration of the app component. Click on the run button to run the test again.
-<p>
-    <img src="Images/rerun.png" width="600">
-</p>
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/rerun.png" width="600">
 You would see an entry for the new test run with the status column changing to configuring, executing. you can click on the test run and you would be taken to the metrics summary page of the test run.
 Once the load test has finished let us again go and see the client-side metrics (response time and errors graphs) and the server side metrics for cosmos db and see if the performance has improved.
-<p>
-    <img src="Images/respclient.png" width="600">
-</p>
-<p>	 
-    <img src="Images/provi.png" width="600">
-</p>
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/respclient.png" width="600">
+   &nbsp;&nbsp;&nbsp;&nbsp;<img src="Images/provi.png" width="600">
 We see that the response time has improved compared to the last test run and also the normalized Ru consumption has been well under the limits and hence we can conclude that the server is able to service the requests and is not constrained now.
 
-# ** Clean Uup resources**
+# ** Clean Up resources**
 
 Now that we have successfully run our first load test and have been able to identify and correct bottleneck in our application, you may want to delete the resources so that you don’t incur charges. Use the az group delete command to remove the resource group, and all related resources.
 

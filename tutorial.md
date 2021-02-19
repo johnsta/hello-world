@@ -82,14 +82,13 @@ Now that we have setup the environment and installed the Azure load Test Extensi
     * Create New Test - This command is used to author a new test from scratch.   
     * Run Current File as Load Test in Cloud – This command is used to run an existing Yaml runbook at scale in cloud.   
 
-    <img src="Images/Start.png" width="600">
+    <img src="Images/Start.png" height="150">
 
 2. Select the command **Create New Test**
 
-3. Select a test plan **SampleApp.jmx**. if there are multiple jmx at the workspace, they will be shown as a list. There is also a browse option to search for a test plan within your local file system.
-
+3. Select a test plan **SampleApp.jmx**. if there are multiple jmx at the workspace, they will be shown as a list. There is also a browse option to search for a test plan within your local file system.		
     <img src="Images/browse.png" width="600">
-
+    
 4. A YAML runbook with smart defaults will open. By default, the name of the YAML runbook would be the name of the test plan that we selected in the previous step. This runbook will be created and saved in the current workspace.
 
     <img src="Images/Yaml.png" width="600">
